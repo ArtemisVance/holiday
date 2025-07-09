@@ -53,10 +53,7 @@ export function LocationMoodBoard() {
 
   const createRatingMutation = useMutation({
     mutationFn: async (data: { locationId: number; locationName: string; rating: string; notes?: string }) => {
-      return await apiRequest("/api/mood-ratings", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return await apiRequest("POST", "/api/mood-ratings", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/mood-ratings"] });
@@ -65,10 +62,8 @@ export function LocationMoodBoard() {
 
   const updateRatingMutation = useMutation({
     mutationFn: async (data: { id: number; rating?: string; notes?: string }) => {
-      return await apiRequest(`/api/mood-ratings/${data.id}`, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-      });
+      const { id, ...updateData } = data;
+      return await apiRequest("PATCH", `/api/mood-ratings/${id}`, updateData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/mood-ratings"] });
@@ -79,9 +74,7 @@ export function LocationMoodBoard() {
 
   const deleteRatingMutation = useMutation({
     mutationFn: async (id: number) => {
-      return await apiRequest(`/api/mood-ratings/${id}`, {
-        method: "DELETE",
-      });
+      return await apiRequest("DELETE", `/api/mood-ratings/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/mood-ratings"] });

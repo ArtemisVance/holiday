@@ -52,12 +52,9 @@ export function TravelProgressTracker() {
   const toggleMilestoneMutation = useMutation({
     mutationFn: async (milestone: TravelProgress) => {
       const newStatus = milestone.isCompleted === "true" ? "false" : "true";
-      return await apiRequest(`/api/travel-progress/${milestone.id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ 
-          isCompleted: newStatus,
-          completedAt: newStatus === "true" ? new Date().toISOString() : null
-        }),
+      return await apiRequest("PATCH", `/api/travel-progress/${milestone.id}`, { 
+        isCompleted: newStatus,
+        completedAt: newStatus === "true" ? new Date().toISOString() : null
       });
     },
     onSuccess: () => {
