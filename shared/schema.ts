@@ -28,6 +28,7 @@ export const restaurants = pgTable("restaurants", {
   location: text("location").notNull(),
   description: text("description"),
   mealType: text("meal_type"),
+  mapsUrl: text("maps_url"),
 });
 
 export const insertItineraryDaySchema = createInsertSchema(itineraryDays).omit({

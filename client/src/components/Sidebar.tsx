@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Utensils } from "lucide-react";
+import { Calendar, MapPin, Utensils, Home, CloudRain } from "lucide-react";
 
 type SidebarProps = {
   activeSection: string;
@@ -10,7 +10,9 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
   const menuItems = [
     { id: "itinerary", icon: Calendar, label: "Itinerary", gradient: "from-osu-pink to-osu-blue" },
     { id: "locations", icon: MapPin, label: "Locations", gradient: "from-osu-blue to-osu-purple" },
-    { id: "restaurants", icon: Utensils, label: "Restaurants", gradient: "from-osu-purple to-osu-pink" }
+    { id: "restaurants", icon: Utensils, label: "Restaurants", gradient: "from-osu-purple to-osu-pink" },
+    { id: "homebase", icon: Home, label: "Homebase", gradient: "from-osu-pink to-osu-purple" },
+    { id: "weather", icon: CloudRain, label: "Weather", gradient: "from-osu-blue to-osu-pink" }
   ];
 
   return (

@@ -38,7 +38,9 @@ Preferred communication style: Simple, everyday language.
 - **Dashboard**: Main application interface with tabbed navigation
 - **ItineraryCard**: Displays daily itinerary information with weather and activities
 - **LocationCard**: Shows tourist locations with categorized icons
-- **RestaurantCard**: Displays dining recommendations with meal type indicators
+- **RestaurantCard**: Displays dining recommendations with meal type indicators and Google Maps links
+- **HomebaseCard**: Shows accommodation location with directions and today's activities
+- **WeatherCard**: Displays comprehensive weather forecast with daily details and summary
 - **Sidebar**: Navigation component with dashboard controls
 - **Header**: Application header with theme toggle and branding
 - **ThemeProvider**: Manages light/dark theme state
@@ -51,7 +53,19 @@ Preferred communication style: Simple, everyday language.
 ### Database Schema
 - **itinerary_days**: Stores daily itinerary with activities and dining as JSON
 - **locations**: Tourist locations with categories and map links
-- **restaurants**: Dining options with categories and descriptions
+- **restaurants**: Dining options with categories, descriptions, and Google Maps links
+
+### New Dashboard Features
+- **Homebase Navigation**: Shows accommodation location (Gwalia Falls Caravan Park) with:
+  - Direct link to homebase on Google Maps
+  - "Explore Nearby" functionality to discover attractions around the accommodation
+  - Today's activities with directions from homebase
+  - Visual integration with the day's itinerary
+- **Weather Forecast**: Comprehensive weather display with:
+  - 8-day weather summary with average temperatures
+  - Daily weather cards with icons and temperature colors
+  - Weather advice for each day (what to pack, activity recommendations)
+  - Rain/sunny day counters for trip planning
 
 ## Data Flow
 

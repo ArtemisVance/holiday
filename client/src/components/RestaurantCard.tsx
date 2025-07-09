@@ -32,20 +32,32 @@ const getCategoryColor = (category: string) => {
 export function RestaurantCard({ restaurant }: RestaurantCardProps) {
   return (
     <div className={`border-l-4 ${getCategoryColor(restaurant.category)} pl-4 py-2`}>
-      <div className="flex items-start space-x-3">
-        {getCategoryIcon(restaurant.category)}
-        <div className="flex-1">
-          <h4 className="font-medium">{restaurant.name}</h4>
-          <p className="text-sm opacity-70">{restaurant.location}</p>
-          {restaurant.description && (
-            <p className="text-sm opacity-70">{restaurant.description}</p>
-          )}
-          {restaurant.mealType && (
-            <Badge variant="secondary" className="mt-1 text-xs">
-              {restaurant.mealType}
-            </Badge>
-          )}
+      <div className="flex items-start justify-between">
+        <div className="flex items-start space-x-3 flex-1">
+          {getCategoryIcon(restaurant.category)}
+          <div className="flex-1">
+            <h4 className="font-medium">{restaurant.name}</h4>
+            <p className="text-sm opacity-70">{restaurant.location}</p>
+            {restaurant.description && (
+              <p className="text-sm opacity-70">{restaurant.description}</p>
+            )}
+            {restaurant.mealType && (
+              <Badge variant="secondary" className="mt-1 text-xs">
+                {restaurant.mealType}
+              </Badge>
+            )}
+          </div>
         </div>
+        {restaurant.mapsUrl && (
+          <a
+            href={restaurant.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-osu-pink hover:text-osu-blue transition-colors ml-2"
+          >
+            <ExternalLink size={16} />
+          </a>
+        )}
       </div>
     </div>
   );

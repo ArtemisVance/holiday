@@ -5,6 +5,8 @@ import { Sidebar } from "@/components/Sidebar";
 import { ItineraryCard } from "@/components/ItineraryCard";
 import { LocationCard } from "@/components/LocationCard";
 import { RestaurantCard } from "@/components/RestaurantCard";
+import { HomebaseCard } from "@/components/HomebaseCard";
+import { WeatherCard } from "@/components/WeatherCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { ItineraryDay, Location, Restaurant } from "@shared/schema";
@@ -171,6 +173,16 @@ export default function Dashboard() {
           title: 'Restaurants & Dining',
           subtitle: 'Discover amazing local cuisine throughout your journey'
         };
+      case 'homebase':
+        return {
+          title: 'Homebase Navigation',
+          subtitle: 'Your accommodation hub and nearby attractions'
+        };
+      case 'weather':
+        return {
+          title: 'Weather Forecast',
+          subtitle: 'Daily weather conditions for your Wales adventure'
+        };
       default:
         return {
           title: 'Dashboard',
@@ -187,6 +199,10 @@ export default function Dashboard() {
         return renderLocations();
       case 'restaurants':
         return renderRestaurants();
+      case 'homebase':
+        return <HomebaseCard />;
+      case 'weather':
+        return <WeatherCard />;
       default:
         return renderItinerary();
     }
