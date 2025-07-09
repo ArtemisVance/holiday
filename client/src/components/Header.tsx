@@ -18,9 +18,7 @@ export function Header() {
               <h1 className="text-4xl font-bold text-foreground dark:text-white hover-scale mb-1">
                 Wales Holiday Adventure
               </h1>
-              <p className="text-lg font-semibold bg-gradient-to-r from-osu-purple to-osu-pink bg-clip-text text-transparent mb-2">
-                Your complete Wales adventure guide
-              </p>
+
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-1 text-sm">
                   <Calendar className="text-osu-blue" size={14} />

@@ -7,6 +7,8 @@ import { LocationCard } from "@/components/LocationCard";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { HomebaseCard } from "@/components/HomebaseCard";
 import { WeatherCard } from "@/components/WeatherCard";
+import { TravelProgressTracker } from "@/components/TravelProgressTracker";
+import { LocationMoodBoard } from "@/components/LocationMoodBoard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { ItineraryDay, Location, Restaurant } from "@shared/schema";
@@ -183,6 +185,16 @@ export default function Dashboard() {
           title: 'Weather Forecast',
           subtitle: 'Daily weather conditions for your Wales adventure'
         };
+      case 'progress':
+        return {
+          title: 'Travel Progress',
+          subtitle: 'Track your holiday milestones and achievements'
+        };
+      case 'moodboard':
+        return {
+          title: 'Location Mood Board',
+          subtitle: 'Rate and review your favorite places'
+        };
       default:
         return {
           title: 'Dashboard',
@@ -203,6 +215,10 @@ export default function Dashboard() {
         return <HomebaseCard />;
       case 'weather':
         return <WeatherCard />;
+      case 'progress':
+        return <TravelProgressTracker />;
+      case 'moodboard':
+        return <LocationMoodBoard />;
       default:
         return renderItinerary();
     }

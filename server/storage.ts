@@ -2,12 +2,18 @@ import {
   itineraryDays, 
   locations, 
   restaurants,
+  travelProgress,
+  locationMoodRatings,
   type ItineraryDay, 
   type Location, 
   type Restaurant,
+  type TravelProgress,
+  type LocationMoodRating,
   type InsertItineraryDay,
   type InsertLocation,
-  type InsertRestaurant 
+  type InsertRestaurant,
+  type InsertTravelProgress,
+  type InsertLocationMoodRating
 } from "@shared/schema";
 
 export interface IStorage {
@@ -17,23 +23,38 @@ export interface IStorage {
   createItineraryDay(day: InsertItineraryDay): Promise<ItineraryDay>;
   createLocation(location: InsertLocation): Promise<Location>;
   createRestaurant(restaurant: InsertRestaurant): Promise<Restaurant>;
+  getTravelProgress(): Promise<TravelProgress[]>;
+  createTravelProgress(progress: InsertTravelProgress): Promise<TravelProgress>;
+  updateTravelProgress(id: number, data: Partial<TravelProgress>): Promise<TravelProgress>;
+  getMoodRatings(): Promise<LocationMoodRating[]>;
+  createMoodRating(rating: InsertLocationMoodRating): Promise<LocationMoodRating>;
+  updateMoodRating(id: number, data: Partial<LocationMoodRating>): Promise<LocationMoodRating>;
+  deleteMoodRating(id: number): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
   private itineraryDays: Map<number, ItineraryDay>;
   private locations: Map<number, Location>;
   private restaurants: Map<number, Restaurant>;
+  private travelProgress: Map<number, TravelProgress>;
+  private moodRatings: Map<number, LocationMoodRating>;
   private currentItineraryId: number;
   private currentLocationId: number;
   private currentRestaurantId: number;
+  private currentProgressId: number;
+  private currentMoodRatingId: number;
 
   constructor() {
     this.itineraryDays = new Map();
     this.locations = new Map();
     this.restaurants = new Map();
+    this.travelProgress = new Map();
+    this.moodRatings = new Map();
     this.currentItineraryId = 1;
     this.currentLocationId = 1;
     this.currentRestaurantId = 1;
+    this.currentProgressId = 1;
+    this.currentMoodRatingId = 1;
     this.initializeData();
   }
 
@@ -210,6 +231,34 @@ export class MemStorage implements IStorage {
       const id = this.currentRestaurantId++;
       this.restaurants.set(id, { ...restaurant, id });
     });
+
+    // Initialize travel progress data
+    const progressData = [
+      { milestoneId: "booking", name: "Booked accommodation", description: "Gwalia Falls Caravan Park confirmed", isCompleted: "true", completedAt: "2024-07-01T10:00:00Z", day: null, category: "planning", icon: "calendar", order: 1 },
+      { milestoneId: "packing", name: "Packed for trip", description: "Clothes, toiletries, and beach gear", isCompleted: "false", completedAt: null, day: null, category: "planning", icon: "map", order: 2 },
+      { milestoneId: "travel", name: "Travel to Wales", description: "Journey to Tresaith", isCompleted: "false", completedAt: null, day: 11, category: "travel", icon: "route", order: 3 },
+      { milestoneId: "checkin", name: "Check in at Gwalia Falls", description: "Settle into accommodation", isCompleted: "false", completedAt: null, day: 11, category: "travel", icon: "map", order: 4 },
+      { milestoneId: "beach1", name: "First beach day", description: "Tresaith Beach exploration", isCompleted: "false", completedAt: null, day: 11, category: "activities", icon: "star", order: 5 },
+      { milestoneId: "cardigan", name: "Visit Cardigan", description: "Explore historic market town", isCompleted: "false", completedAt: null, day: 12, category: "activities", icon: "star", order: 6 },
+      { milestoneId: "new_quay", name: "New Quay dolphin watching", description: "Boat trip to see dolphins", isCompleted: "false", completedAt: null, day: 13, category: "activities", icon: "star", order: 7 },
+      { milestoneId: "aberaeron", name: "Aberaeron visit", description: "Colorful harbour town", isCompleted: "false", completedAt: null, day: 14, category: "activities", icon: "star", order: 8 },
+      { milestoneId: "aberystwyth", name: "Aberystwyth day trip", description: "University town and pier", isCompleted: "false", completedAt: null, day: 15, category: "activities", icon: "star", order: 9 },
+      { milestoneId: "seafood", name: "Try local seafood", description: "Dine at coastal restaurants", isCompleted: "false", completedAt: null, day: null, category: "dining", icon: "utensils", order: 10 },
+      { milestoneId: "sunset", name: "Watch sunset from beach", description: "Evening at Tresaith Beach", isCompleted: "false", completedAt: null, day: null, category: "activities", icon: "camera", order: 11 },
+      { milestoneId: "checkout", name: "Check out & travel home", description: "Final day departure", isCompleted: "false", completedAt: null, day: 18, category: "travel", icon: "route", order: 12 }
+    ];
+
+    progressData.forEach(progress => {
+      const id = this.currentProgressId++;
+      this.travelProgress.set(id, { 
+        ...progress, 
+        id,
+        description: progress.description || null,
+        day: progress.day || null,
+        isCompleted: progress.isCompleted || null,
+        completedAt: progress.completedAt || null
+      });
+    });
   }
 
   async getItineraryDays(): Promise<ItineraryDay[]> {
@@ -253,6 +302,70 @@ export class MemStorage implements IStorage {
     };
     this.restaurants.set(id, restaurant);
     return restaurant;
+  }
+
+  async getTravelProgress(): Promise<TravelProgress[]> {
+    return Array.from(this.travelProgress.values());
+  }
+
+  async createTravelProgress(insertProgress: InsertTravelProgress): Promise<TravelProgress> {
+    const id = this.currentProgressId++;
+    const progress: TravelProgress = { 
+      ...insertProgress, 
+      id,
+      description: insertProgress.description || null,
+      day: insertProgress.day || null,
+      isCompleted: insertProgress.isCompleted || null,
+      completedAt: insertProgress.completedAt || null
+    };
+    this.travelProgress.set(id, progress);
+    return progress;
+  }
+
+  async updateTravelProgress(id: number, data: Partial<TravelProgress>): Promise<TravelProgress> {
+    const progress = this.travelProgress.get(id);
+    if (!progress) {
+      throw new Error(`Travel progress with id ${id} not found`);
+    }
+    const updatedProgress = { ...progress, ...data };
+    this.travelProgress.set(id, updatedProgress);
+    return updatedProgress;
+  }
+
+  async getMoodRatings(): Promise<LocationMoodRating[]> {
+    return Array.from(this.moodRatings.values());
+  }
+
+  async createMoodRating(insertRating: InsertLocationMoodRating): Promise<LocationMoodRating> {
+    const id = this.currentMoodRatingId++;
+    const rating: LocationMoodRating = { 
+      ...insertRating, 
+      id,
+      locationId: insertRating.locationId || null,
+      notes: insertRating.notes || null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    this.moodRatings.set(id, rating);
+    return rating;
+  }
+
+  async updateMoodRating(id: number, data: Partial<LocationMoodRating>): Promise<LocationMoodRating> {
+    const rating = this.moodRatings.get(id);
+    if (!rating) {
+      throw new Error(`Mood rating with id ${id} not found`);
+    }
+    const updatedRating = { 
+      ...rating, 
+      ...data, 
+      updatedAt: new Date().toISOString() 
+    };
+    this.moodRatings.set(id, updatedRating);
+    return updatedRating;
+  }
+
+  async deleteMoodRating(id: number): Promise<void> {
+    this.moodRatings.delete(id);
   }
 }
 

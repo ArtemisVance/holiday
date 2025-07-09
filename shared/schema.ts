@@ -31,6 +31,29 @@ export const restaurants = pgTable("restaurants", {
   mapsUrl: text("maps_url"),
 });
 
+export const travelProgress = pgTable("travel_progress", {
+  id: serial("id").primaryKey(),
+  milestoneId: text("milestone_id").notNull(),
+  name: text("name").notNull(),
+  description: text("description"),
+  isCompleted: text("is_completed").default("false"),
+  completedAt: text("completed_at"),
+  day: integer("day"),
+  category: text("category").notNull(), // 'planning', 'travel', 'activities', 'dining'
+  icon: text("icon").notNull(),
+  order: integer("order").notNull(),
+});
+
+export const locationMoodRatings = pgTable("location_mood_ratings", {
+  id: serial("id").primaryKey(),
+  locationId: integer("location_id").references(() => locations.id),
+  locationName: text("location_name").notNull(),
+  rating: text("rating").notNull(), // 'good', 'okay', 'horrible'
+  notes: text("notes"),
+  createdAt: text("created_at"),
+  updatedAt: text("updated_at"),
+});
+
 export const insertItineraryDaySchema = createInsertSchema(itineraryDays).omit({
   id: true,
 });
@@ -43,10 +66,22 @@ export const insertRestaurantSchema = createInsertSchema(restaurants).omit({
   id: true,
 });
 
+export const insertTravelProgressSchema = createInsertSchema(travelProgress).omit({
+  id: true,
+});
+
+export const insertLocationMoodRatingSchema = createInsertSchema(locationMoodRatings).omit({
+  id: true,
+});
+
 export type InsertItineraryDay = z.infer<typeof insertItineraryDaySchema>;
 export type InsertLocation = z.infer<typeof insertLocationSchema>;
 export type InsertRestaurant = z.infer<typeof insertRestaurantSchema>;
+export type InsertTravelProgress = z.infer<typeof insertTravelProgressSchema>;
+export type InsertLocationMoodRating = z.infer<typeof insertLocationMoodRatingSchema>;
 
 export type ItineraryDay = typeof itineraryDays.$inferSelect;
 export type Location = typeof locations.$inferSelect;
 export type Restaurant = typeof restaurants.$inferSelect;
+export type TravelProgress = typeof travelProgress.$inferSelect;
+export type LocationMoodRating = typeof locationMoodRatings.$inferSelect;
