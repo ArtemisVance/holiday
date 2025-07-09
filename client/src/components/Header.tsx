@@ -10,15 +10,15 @@ export function Header() {
     <header className="sticky top-0 z-50 glass-effect border-b border-border/50">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             <div className="osu-gradient w-12 h-12 rounded-full flex items-center justify-center animate-float hover-glow">
               <MapPin className="text-white" size={24} />
             </div>
-            <div>
-              <h1 className="text-4xl font-bold text-foreground dark:text-white hover-scale mb-2">
+            <div className="flex flex-col justify-center">
+              <h1 className="text-4xl font-bold text-foreground dark:text-white hover-scale mb-1">
                 Wales Holiday Adventure
               </h1>
-              <p className="text-lg font-semibold bg-gradient-to-r from-osu-purple to-osu-pink bg-clip-text text-transparent mb-3">
+              <p className="text-lg font-semibold bg-gradient-to-r from-osu-purple to-osu-pink bg-clip-text text-transparent mb-2">
                 Your complete Wales adventure guide
               </p>
               <div className="flex items-center space-x-4">

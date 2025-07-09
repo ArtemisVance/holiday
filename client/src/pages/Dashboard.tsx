@@ -94,7 +94,7 @@ export default function Dashboard() {
           <Card key={category} className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover-lift animate-fade-in">
             <CardContent className="p-0">
               <div className="flex items-center mb-4">
-                <h3 className="text-xl font-semibold">
+                <h3 className="text-xl font-semibold text-foreground dark:text-white">
                   {categoryTitles[category as keyof typeof categoryTitles] || category}
                 </h3>
               </div>
@@ -140,7 +140,7 @@ export default function Dashboard() {
           <Card key={category} className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover-lift animate-fade-in">
             <CardContent className="p-0">
               <div className="flex items-center mb-4">
-                <h3 className="text-xl font-semibold">
+                <h3 className="text-xl font-semibold text-foreground dark:text-white">
                   {categoryTitles[category as keyof typeof categoryTitles] || category}
                 </h3>
               </div>
@@ -220,7 +220,7 @@ export default function Dashboard() {
           
           <div className="lg:col-span-3">
             <div className="mb-8">
-              <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-osu-pink to-osu-blue bg-clip-text text-transparent hover-scale">
+              <h2 className="text-4xl font-bold mb-4 text-foreground dark:text-white hover-scale">
                 {title}
               </h2>
               <p className="text-lg font-semibold bg-gradient-to-r from-osu-purple to-osu-pink bg-clip-text text-transparent animate-fade-in">
