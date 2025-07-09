@@ -15,10 +15,13 @@ export function Header() {
               <MapPin className="text-white" size={24} />
             </div>
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-osu-pink to-osu-blue bg-clip-text text-transparent hover-scale">
+              <h1 className="text-4xl font-bold text-foreground dark:text-white hover-scale mb-2">
                 Wales Holiday Adventure
               </h1>
-              <div className="flex items-center space-x-4 mt-1">
+              <p className="text-lg font-semibold bg-gradient-to-r from-osu-purple to-osu-pink bg-clip-text text-transparent mb-3">
+                Your complete Wales adventure guide
+              </p>
+              <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-1 text-sm">
                   <Calendar className="text-osu-blue" size={14} />
                   <span className="font-medium text-foreground">July 11-18, 2024</span>
@@ -32,9 +35,6 @@ export function Header() {
                   Active
                 </Badge>
               </div>
-              <p className="text-sm font-medium bg-gradient-to-r from-osu-purple to-osu-pink bg-clip-text text-transparent mt-1">
-                Your complete Wales adventure guide
-              </p>
             </div>
           </div>
           

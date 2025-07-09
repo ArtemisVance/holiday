@@ -255,3 +255,12 @@
 .light .restaurant-map-link:hover {
   color: #1e3a8a !important;
 }
+
+/* Header text visibility */
+.light .text-foreground {
+  color: #1f2937 !important;
+}
+
+.dark .text-foreground {
+  color: #f9fafb !important;
+}
