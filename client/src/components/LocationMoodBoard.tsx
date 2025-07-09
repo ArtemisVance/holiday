@@ -41,6 +41,7 @@ export function LocationMoodBoard() {
   const [draggedLocation, setDraggedLocation] = useState<Location | null>(null);
   const [editingRating, setEditingRating] = useState<number | null>(null);
   const [editNotes, setEditNotes] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef<HTMLDivElement>(null);
 
   const { data: locations, isLoading: locationsLoading } = useQuery<Location[]>({
@@ -83,17 +84,21 @@ export function LocationMoodBoard() {
 
   const handleDragStart = (e: React.DragEvent, location: Location) => {
     setDraggedLocation(location);
+    setIsDragging(true);
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/plain", location.id.toString());
   };
 
   const handleDragEnd = () => {
     setDraggedLocation(null);
+    setIsDragging(false);
   };
 
   const handleDrop = (e: React.DragEvent, rating: string) => {
     e.preventDefault();
-    if (draggedLocation) {
+    e.stopPropagation();
+    
+    if (draggedLocation && isDragging) {
       const existingRating = ratings?.find(r => r.locationId === draggedLocation.id);
       
       if (existingRating) {
@@ -110,6 +115,7 @@ export function LocationMoodBoard() {
       }
     }
     setDraggedLocation(null);
+    setIsDragging(false);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -119,12 +125,19 @@ export function LocationMoodBoard() {
 
   const handleDragEnter = (e: React.DragEvent) => {
     e.preventDefault();
-    e.currentTarget.classList.add('border-osu-pink');
+    e.stopPropagation();
+    if (isDragging) {
+      e.currentTarget.classList.add('border-osu-pink');
+    }
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
-    e.currentTarget.classList.remove('border-osu-pink');
+    e.stopPropagation();
+    // Only remove the class if we're leaving the current target, not a child
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+      e.currentTarget.classList.remove('border-osu-pink');
+    }
   };
 
   const handleEditNotes = (ratingId: number, currentNotes: string) => {
@@ -244,13 +257,7 @@ export function LocationMoodBoard() {
                 </Badge>
               </div>
               
-              <div 
-                className="space-y-3 min-h-[100px]"
-                onDrop={(e) => handleDrop(e, key)}
-                onDragOver={handleDragOver}
-                onDragEnter={handleDragEnter}
-                onDragLeave={handleDragLeave}
-              >
+              <div className="space-y-3 min-h-[100px]">
                 {ratedLocations[key].map((rating) => (
                   <div
                     key={rating.id}
