@@ -38,10 +38,10 @@ export function HomebaseCard() {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+      <Card className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover-lift animate-fade-in">
         <CardContent className="p-0">
           <div className="flex items-center space-x-4 mb-4">
-            <div className="w-12 h-12 osu-gradient rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 osu-gradient rounded-full flex items-center justify-center animate-bounce-subtle hover-scale">
               <Home className="text-white" size={24} />
             </div>
             <div>
@@ -89,7 +89,7 @@ export function HomebaseCard() {
       </Card>
 
       {currentDay && (
-        <Card className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+        <Card className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover-lift animate-slide-up">
           <CardContent className="p-0">
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-12 h-12 bg-osu-pink rounded-full flex items-center justify-center">

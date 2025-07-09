@@ -81,10 +81,10 @@ export function WeatherCard() {
     <div className="space-y-6">
       {/* Weather Summary */}
       {summary && (
-        <Card className="bg-card p-6 rounded-2xl shadow-lg">
+        <Card className="bg-card p-6 rounded-2xl shadow-lg hover-lift animate-fade-in">
           <CardContent className="p-0">
             <div className="flex items-center space-x-4 mb-4">
-              <div className="w-12 h-12 bg-osu-blue rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-osu-blue rounded-full flex items-center justify-center animate-bounce-subtle hover-scale">
                 <Thermometer className="text-white" size={24} />
               </div>
               <div>
@@ -118,7 +118,7 @@ export function WeatherCard() {
       {/* Daily Weather Details */}
       <div className="space-y-4">
         {itinerary?.map((day) => (
-          <Card key={day.id} className="bg-card p-4 rounded-xl shadow-md hover:shadow-lg transition-all">
+          <Card key={day.id} className="bg-card p-4 rounded-xl shadow-md hover:shadow-lg transition-all hover-lift animate-slide-up">
             <CardContent className="p-0">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">

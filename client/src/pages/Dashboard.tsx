@@ -91,7 +91,7 @@ export default function Dashboard() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {Object.entries(groupedLocations).map(([category, categoryLocations]) => (
-          <Card key={category} className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+          <Card key={category} className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover-lift animate-fade-in">
             <CardContent className="p-0">
               <div className="flex items-center mb-4">
                 <h3 className="text-xl font-semibold">
@@ -137,7 +137,7 @@ export default function Dashboard() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {Object.entries(groupedRestaurants).map(([category, categoryRestaurants]) => (
-          <Card key={category} className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+          <Card key={category} className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover-lift animate-fade-in">
             <CardContent className="p-0">
               <div className="flex items-center mb-4">
                 <h3 className="text-xl font-semibold">
@@ -220,10 +220,12 @@ export default function Dashboard() {
           
           <div className="lg:col-span-3">
             <div className="mb-8">
-              <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-osu-pink to-osu-blue bg-clip-text text-transparent">
+              <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-osu-pink to-osu-blue bg-clip-text text-transparent hover-scale">
                 {title}
               </h2>
-              <p className="opacity-70">{subtitle}</p>
+              <p className="text-lg font-semibold bg-gradient-to-r from-osu-purple to-osu-pink bg-clip-text text-transparent animate-fade-in">
+                {subtitle}
+              </p>
             </div>
             
             {renderContent()}

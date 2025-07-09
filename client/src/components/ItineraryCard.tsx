@@ -36,11 +36,11 @@ export function ItineraryCard({ day }: ItineraryCardProps) {
   const dining = Array.isArray(day.dining) ? day.dining : [];
 
   return (
-    <Card className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all animate-fade-in">
+    <Card className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all animate-fade-in hover-lift">
       <CardContent className="p-0">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 osu-gradient rounded-full flex items-center justify-center text-white font-bold">
+            <div className="w-12 h-12 osu-gradient rounded-full flex items-center justify-center text-white font-bold animate-bounce-subtle hover-scale">
               {day.day}
             </div>
             <div>

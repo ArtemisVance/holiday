@@ -17,7 +17,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
 
   return (
     <div className="lg:col-span-1">
-      <div className="bg-card p-6 rounded-2xl shadow-lg sticky top-24">
+      <div className="bg-card p-6 rounded-2xl shadow-lg sticky top-24 hover-lift animate-fade-in">
         <h2 className="text-xl font-semibold mb-6 text-center">Dashboard</h2>
         <nav className="space-y-4">
           {menuItems.map((item) => (
@@ -25,7 +25,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
               key={item.id}
               onClick={() => onSectionChange(item.id)}
               variant={activeSection === item.id ? "default" : "ghost"}
-              className={`w-full p-4 rounded-xl font-medium transition-all hover:shadow-lg hover:scale-105 ${
+              className={`w-full p-4 rounded-xl font-medium transition-all hover:shadow-lg hover-scale hover-glow ${
                 activeSection === item.id
                   ? `osu-gradient text-white`
                   : `text-foreground hover:bg-osu-blue hover:text-white`
