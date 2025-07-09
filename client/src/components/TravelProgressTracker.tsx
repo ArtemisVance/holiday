@@ -66,9 +66,7 @@ export function TravelProgressTracker() {
   });
 
   const handleToggleMilestone = (milestone: TravelProgress) => {
-    toggleMilestoneMutation.mutate(milestone).catch(error => {
-      console.error('Failed to toggle milestone:', error);
-    });
+    toggleMilestoneMutation.mutate(milestone);
   };
 
   if (isLoading) {
@@ -162,11 +160,13 @@ export function TravelProgressTracker() {
                   .sort((a, b) => a.order - b.order)
                   .map((milestone, index) => (
                     <div key={milestone.id} className="flex items-center space-x-3 p-3 rounded-lg bg-background/50 hover:bg-background/70 transition-colors">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleToggleMilestone(milestone)}
-                        className="p-1 h-auto hover:bg-transparent"
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleToggleMilestone(milestone);
+                        }}
+                        className="p-1 h-auto hover:bg-transparent focus:outline-none transition-colors"
                         disabled={toggleMilestoneMutation.isPending}
                       >
                         {milestone.isCompleted === "true" ? (
@@ -174,7 +174,7 @@ export function TravelProgressTracker() {
                         ) : (
                           <Circle className="text-muted-foreground hover:text-osu-pink transition-colors cursor-pointer" size={24} />
                         )}
-                      </Button>
+                      </button>
                       
                       <div className="flex items-center space-x-2 flex-1">
                         {getMilestoneIcon(milestone.icon)}

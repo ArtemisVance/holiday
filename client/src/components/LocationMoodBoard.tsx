@@ -107,16 +107,12 @@ export function LocationMoodBoard() {
         updateRatingMutation.mutate({
           id: existingRating.id,
           rating: rating,
-        }).catch(error => {
-          console.error('Failed to update rating:', error);
         });
       } else {
         createRatingMutation.mutate({
           locationId: draggedLocation.id,
           locationName: draggedLocation.name,
           rating: rating,
-        }).catch(error => {
-          console.error('Failed to create rating:', error);
         });
       }
     }
@@ -126,6 +122,16 @@ export function LocationMoodBoard() {
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
+  };
+
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.currentTarget.classList.add('border-osu-pink');
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.currentTarget.classList.remove('border-osu-pink');
   };
 
   const handleEditNotes = (ratingId: number, currentNotes: string) => {
@@ -138,16 +144,12 @@ export function LocationMoodBoard() {
       updateRatingMutation.mutate({
         id: editingRating,
         notes: editNotes,
-      }).catch(error => {
-        console.error('Failed to save notes:', error);
       });
     }
   };
 
   const handleDeleteRating = (id: number) => {
-    deleteRatingMutation.mutate(id).catch(error => {
-      console.error('Failed to delete rating:', error);
-    });
+    deleteRatingMutation.mutate(id);
   };
 
   if (locationsLoading || ratingsLoading) {
@@ -230,9 +232,11 @@ export function LocationMoodBoard() {
         ] as const).map(({ key, title, icon, color }) => (
           <Card
             key={key}
-            className={`bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border-2 ${color} hover-lift animate-fade-in`}
+            className={`bg-card p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border-2 ${color} hover-lift animate-fade-in min-h-[200px]`}
             onDrop={(e) => handleDrop(e, key)}
             onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
           >
             <CardContent className="p-0">
               <div className="flex items-center justify-between mb-4">
@@ -247,7 +251,13 @@ export function LocationMoodBoard() {
                 </Badge>
               </div>
               
-              <div className="space-y-3 min-h-[100px]">
+              <div 
+                className="space-y-3 min-h-[100px]"
+                onDrop={(e) => handleDrop(e, key)}
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+              >
                 {ratedLocations[key].map((rating) => (
                   <div
                     key={rating.id}
