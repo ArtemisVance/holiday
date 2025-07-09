@@ -15,7 +15,7 @@ export function Header() {
               <MapPin className="text-white" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-osu-pink to-osu-blue bg-clip-text text-transparent hover-scale">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-osu-pink to-osu-blue bg-clip-text text-transparent hover-scale">
                 Wales Holiday Adventure
               </h1>
               <div className="flex items-center space-x-4 mt-1">
@@ -32,6 +32,9 @@ export function Header() {
                   Active
                 </Badge>
               </div>
+              <p className="text-sm font-medium bg-gradient-to-r from-osu-purple to-osu-pink bg-clip-text text-transparent mt-1">
+                Your complete Wales adventure guide
+              </p>
             </div>
           </div>
           

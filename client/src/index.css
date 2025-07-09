@@ -238,3 +238,20 @@
     opacity: 0.8;
   }
 }
+
+/* Light mode specific styles */
+.light .text-osu-pink {
+  color: #1e40af !important;
+}
+
+.light .text-osu-blue {
+  color: #1e40af !important;
+}
+
+.light .restaurant-map-link {
+  color: #1e40af !important;
+}
+
+.light .restaurant-map-link:hover {
+  color: #1e3a8a !important;
+}

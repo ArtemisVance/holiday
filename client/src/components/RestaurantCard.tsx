@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Coffee, Fish, Utensils, Pizza, Bed, Heart } from "lucide-react";
+import { Coffee, Fish, Utensils, Pizza, Bed, Heart, ExternalLink } from "lucide-react";
 import type { Restaurant } from "@shared/schema";
 
 type RestaurantCardProps = {
@@ -53,7 +53,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
             href={restaurant.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-osu-pink hover:text-osu-blue transition-colors ml-2"
+            className="restaurant-map-link text-osu-pink hover:text-osu-blue transition-colors ml-2"
           >
             <ExternalLink size={16} />
           </a>
