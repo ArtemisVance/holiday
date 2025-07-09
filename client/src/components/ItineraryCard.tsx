@@ -41,7 +41,7 @@ export function ItineraryCard({ day }: ItineraryCardProps) {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 osu-gradient rounded-full flex items-center justify-center text-white font-bold animate-bounce-subtle hover-scale">
-              {day.day}
+              {day.day - 10}
             </div>
             <div>
               <h3 className="text-xl font-semibold">{day.date}</h3>

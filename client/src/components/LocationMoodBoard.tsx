@@ -29,10 +29,10 @@ const getMoodIcon = (rating: string) => {
 
 const getMoodColor = (rating: string) => {
   switch (rating) {
-    case 'good': return 'bg-green-100 border-green-200 text-green-800';
-    case 'okay': return 'bg-yellow-100 border-yellow-200 text-yellow-800';
-    case 'horrible': return 'bg-red-100 border-red-200 text-red-800';
-    default: return 'bg-gray-100 border-gray-200 text-gray-800';
+    case 'good': return 'bg-green-100 border-green-200 text-green-800 dark:bg-green-900/30 dark:border-green-700 dark:text-green-200';
+    case 'okay': return 'bg-yellow-100 border-yellow-200 text-yellow-800 dark:bg-yellow-900/30 dark:border-yellow-700 dark:text-yellow-200';
+    case 'horrible': return 'bg-red-100 border-red-200 text-red-800 dark:bg-red-900/30 dark:border-red-700 dark:text-red-200';
+    default: return 'bg-gray-100 border-gray-200 text-gray-800 dark:bg-gray-900/30 dark:border-gray-700 dark:text-gray-200';
   }
 };
 
@@ -91,6 +91,7 @@ export function LocationMoodBoard() {
   const handleDragStart = (e: React.DragEvent, location: Location) => {
     setDraggedLocation(location);
     e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", location.id.toString());
   };
 
   const handleDragEnd = () => {
@@ -106,12 +107,16 @@ export function LocationMoodBoard() {
         updateRatingMutation.mutate({
           id: existingRating.id,
           rating: rating,
+        }).catch(error => {
+          console.error('Failed to update rating:', error);
         });
       } else {
         createRatingMutation.mutate({
           locationId: draggedLocation.id,
           locationName: draggedLocation.name,
           rating: rating,
+        }).catch(error => {
+          console.error('Failed to create rating:', error);
         });
       }
     }
@@ -133,12 +138,16 @@ export function LocationMoodBoard() {
       updateRatingMutation.mutate({
         id: editingRating,
         notes: editNotes,
+      }).catch(error => {
+        console.error('Failed to save notes:', error);
       });
     }
   };
 
   const handleDeleteRating = (id: number) => {
-    deleteRatingMutation.mutate(id);
+    deleteRatingMutation.mutate(id).catch(error => {
+      console.error('Failed to delete rating:', error);
+    });
   };
 
   if (locationsLoading || ratingsLoading) {
@@ -199,7 +208,7 @@ export function LocationMoodBoard() {
                 draggable
                 onDragStart={(e) => handleDragStart(e, location)}
                 onDragEnd={handleDragEnd}
-                className="flex items-center space-x-2 bg-background/50 hover:bg-background/70 p-3 rounded-lg border border-dashed border-muted-foreground cursor-move hover:border-osu-pink transition-all hover-scale"
+                className="flex items-center space-x-2 bg-background/50 hover:bg-background/70 p-3 rounded-lg border border-dashed border-muted-foreground cursor-move hover:border-osu-pink transition-all hover-scale select-none"
               >
                 <MapPin className="text-osu-blue" size={16} />
                 <span className="text-sm font-medium text-foreground">{location.name}</span>
@@ -215,9 +224,9 @@ export function LocationMoodBoard() {
       {/* Mood Rating Zones */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {([
-          { key: 'good', title: 'Good', icon: 'good', color: 'border-green-200 bg-green-50' },
-          { key: 'okay', title: 'Okay', icon: 'okay', color: 'border-yellow-200 bg-yellow-50' },
-          { key: 'horrible', title: 'Horrible', icon: 'horrible', color: 'border-red-200 bg-red-50' },
+          { key: 'good', title: 'Good', icon: 'good', color: 'border-green-200 bg-green-50 dark:bg-green-900/20 dark:border-green-700' },
+          { key: 'okay', title: 'Okay', icon: 'okay', color: 'border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-700' },
+          { key: 'horrible', title: 'Horrible', icon: 'horrible', color: 'border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-700' },
         ] as const).map(({ key, title, icon, color }) => (
           <Card
             key={key}

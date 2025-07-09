@@ -66,7 +66,9 @@ export function TravelProgressTracker() {
   });
 
   const handleToggleMilestone = (milestone: TravelProgress) => {
-    toggleMilestoneMutation.mutate(milestone);
+    toggleMilestoneMutation.mutate(milestone).catch(error => {
+      console.error('Failed to toggle milestone:', error);
+    });
   };
 
   if (isLoading) {
@@ -170,7 +172,7 @@ export function TravelProgressTracker() {
                         {milestone.isCompleted === "true" ? (
                           <CheckCircle className="text-green-500 animate-bounce-subtle" size={24} />
                         ) : (
-                          <Circle className="text-muted-foreground hover:text-osu-pink transition-colors" size={24} />
+                          <Circle className="text-muted-foreground hover:text-osu-pink transition-colors cursor-pointer" size={24} />
                         )}
                       </Button>
                       
@@ -190,7 +192,7 @@ export function TravelProgressTracker() {
                       
                       {milestone.day && (
                         <Badge variant="outline" className="text-xs">
-                          Day {milestone.day}
+                          Day {milestone.day - 10}
                         </Badge>
                       )}
                     </div>
