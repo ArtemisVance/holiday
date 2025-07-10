@@ -1,3 +1,4 @@
+"start": "vite preview --port $8080 --host"
 {
   "name": "rest-express",
   "version": "1.0.0",
